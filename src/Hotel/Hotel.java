@@ -1,7 +1,7 @@
 package Hotel;
 
 public class Hotel {
-    int calificacion;
+    	int calificacion;
 	String categoria;
 	int empleadoComercial;
 	String nombreHotel;
@@ -24,10 +24,22 @@ public class Hotel {
 	public int obtenerCalificacion() {
 		return this.calificacion;
 	}
-	public void obtenerCapacidad() {}
-	public void obtenerCategoria() {}
-	public void obtenerEmpleadoComercial() {}
-	public void obtenerNombre() {}
-	public void obtenerServicios() {}
-	public void obtenerProductos() {}
+	public String obtenerCapacidad() {
+		return this.verCapacidad;
+	}
+	public String obtenerCategoria() {
+		return this.categoria;
+	}
+	public int obtenerEmpleadoComercial() {
+		return this.empleadoComercial;
+	}
+	public String obtenerNombre() {
+		return this.nombreHotel;
+	}
+	public String obtenerServicios() {
+		return this.servicios;
+	}
+	public String obtenerProductos() {
+		return this.productos;
+	}
 }
