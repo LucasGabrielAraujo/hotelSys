@@ -11,15 +11,13 @@ public class Pago {
         this.metodoPago = metodoPago;
     }
 
-    public boolean realizarPago() {
-        if (monto > 0) {
+    public boolean realizarPago(Hotel hotel) {
+        if (monto > hotel.getPrecio()) {
             return true;
         } else {
             return false;
         }
     }
-
-    // Getters y setters para los atributos adicionales
 
     public ReservarHotel getReserva() {
         return reserva;
