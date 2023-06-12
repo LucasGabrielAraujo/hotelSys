@@ -37,6 +37,7 @@ public class Paquete {
         
         System.out.println("Ingrese el Paquete elegido: ");
         nombrePaquete = entrada.nextLine();
+        entrada.close();
     }
     
     public void obtenerPrecio(){

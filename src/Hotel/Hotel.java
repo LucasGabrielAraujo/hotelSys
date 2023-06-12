@@ -1,45 +1,93 @@
 package Hotel;
 
 public class Hotel {
-    	int calificacion;
-	String categoria;
-	int empleadoComercial;
+    int calificacion;
+	int habitacionesDisponibles;
+	int precio;
 	String nombreHotel;
 	String pais;
 	String productos;
 	String servicios;
-	String verCapacidad; //Capacidad, creo que deberia ser un valor entero, por el hecho de que si alguien
-						 //reserva una habitacion, esta baje su capacidad. Tambien ponerle solamente "capacidad"
+	int capacidad; 
 	
-	public Hotel(int cal, String cat, int empC, String nomH, String pais, String prod, String serv, String capacidad) {
-		this.calificacion=cal;
-		this.categoria=cat;
-		this.empleadoComercial=empC;
-		this.nombreHotel=nomH;
-		this.pais=pais;
-		this.productos=prod;
-		this.servicios=serv;
-		this.verCapacidad=capacidad;
+	public Hotel(String nombre, int habitacionesDisponibles, int calificacion, int precio,
+                 String nombreHotel, String pais, String productos, String servicios, int capacidad) {
+        this.nombreHotel = nombre;
+        this.habitacionesDisponibles = habitacionesDisponibles;
+        this.calificacion = calificacion;
+        this.precio = precio;
+        this.nombreHotel = nombreHotel;
+        this.pais = pais;
+        this.productos = productos;
+        this.servicios = servicios;
+        this.capacidad = capacidad;
 	}
-	public int obtenerCalificacion() {
-		return this.calificacion;
-	}
-	public String obtenerCapacidad() {
-		return this.verCapacidad;
-	}
-	public String obtenerCategoria() {
-		return this.categoria;
-	}
-	public int obtenerEmpleadoComercial() {
-		return this.empleadoComercial;
-	}
-	public String obtenerNombre() {
-		return this.nombreHotel;
-	}
-	public String obtenerServicios() {
-		return this.servicios;
-	}
-	public String obtenerProductos() {
-		return this.productos;
-	}
+
+	public boolean verificarDisponibilidad() {
+        return habitacionesDisponibles > 0;
+    }
+
+    public boolean reservarHabitacion() {
+        if (verificarDisponibilidad()) {
+            habitacionesDisponibles--;
+            return true;
+        } else {
+            return false;
+        }
+    }
+	public int getCalificacion() {
+        return calificacion;
+    }
+
+    public void setCalificacion(int calificacion) {
+        this.calificacion = calificacion;
+    }
+
+    public int getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(int precio) {
+        this.precio = precio;
+    }
+
+    public String getNombre() {
+        return nombreHotel;
+    }
+
+    public void setNombre(String nombreHotel) {
+        this.nombreHotel = nombreHotel;
+    }
+
+    public String getPais() {
+        return pais;
+    }
+
+    public void setPais(String pais) {
+        this.pais = pais;
+    }
+
+    public String getProductos() {
+        return productos;
+    }
+
+    public void setProductos(String productos) {
+        this.productos = productos;
+    }
+
+    public String getServicios() {
+        return servicios;
+    }
+
+    public void setServicios(String servicios) {
+        this.servicios = servicios;
+    }
+
+    public int getCapacidad() {
+        return capacidad;
+    }
+
+    public void setCapacidad(int capacidad) {
+        this.capacidad = capacidad;
+    }
 }

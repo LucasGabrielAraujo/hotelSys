@@ -1,21 +1,20 @@
 package Hotel;
 
-public class Registrarse {
-	String nombre;
-	String apellido;
-	String dni;
-	String domicilio;
-	String nombreDeTarjetaDeCredito;
-	String email;
-	String contraseña;
-	int cuentaBancaria;
-	String usuario;
-	String mercadoPago;
-	
-	//Constructor
-	public Registrarse(String nombre, String apellido, String dni, String domicilio, String nombreDeTarjetaDeCredito,
-			String email, String contraseña, int cuentaBancaria, String usuario, String mercadoPago) {
-		super();
+class Cliente {
+	private String nombre;
+	private String apellido;
+	private String dni;
+	private String domicilio;
+	private String nombreDeTarjetaDeCredito;
+	private String email;
+	private String contraseña;
+	private int cuentaBancaria;
+	private String usuario;
+	private String mercadoPago;
+
+	public Cliente(String nombre, String apellido, String dni, String domicilio,
+			String nombreDeTarjetaDeCredito, String email, String contraseña,
+			int cuentaBancaria, String usuario, String mercadoPago) {
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.dni = dni;
@@ -27,7 +26,7 @@ public class Registrarse {
 		this.usuario = usuario;
 		this.mercadoPago = mercadoPago;
 	}
-      //Getters and Setters
+
 	public String getNombre() {
 		return nombre;
 	}
@@ -92,12 +91,12 @@ public class Registrarse {
 		this.cuentaBancaria = cuentaBancaria;
 	}
 
-	public String getUsusario() {
+	public String getUsuario() {
 		return usuario;
 	}
 
-	public void setUsusario(String ususario) {
-		this.usuario = ususario;
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
 	}
 
 	public String getMercadoPago() {
@@ -107,10 +106,4 @@ public class Registrarse {
 	public void setMercadoPago(String mercadoPago) {
 		this.mercadoPago = mercadoPago;
 	}
-		
-	
-	
-	
-	
-
 }
