@@ -1,22 +1,21 @@
 package Hotel;
 
 public class Hotel {
-    int calificacion;
-	int habitacionesDisponibles;
-	int precio;
-	String nombreHotel;
-	String pais;
-	String productos;
-	String servicios;
-	int capacidad; 
+    private int calificacion;
+	private int habitacionesDisponibles;
+	private int precio;
+	private String nombreHotel;
+	private String pais;
+	private String productos;
+	private String servicios;
+	private int capacidad; 
 	
 	public Hotel(String nombre, int habitacionesDisponibles, int calificacion, int precio,
-                 String nombreHotel, String pais, String productos, String servicios, int capacidad) {
+                  String pais, String productos, String servicios, int capacidad) {
         this.nombreHotel = nombre;
         this.habitacionesDisponibles = habitacionesDisponibles;
         this.calificacion = calificacion;
         this.precio = precio;
-        this.nombreHotel = nombreHotel;
         this.pais = pais;
         this.productos = productos;
         this.servicios = servicios;
