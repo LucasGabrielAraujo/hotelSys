@@ -28,11 +28,14 @@ public class Hotel {
 
     public boolean reservarHabitacion() {
         if (verificarDisponibilidad()) {
-            habitacionesDisponibles--;
+            this.habitacionesDisponibles--;
             return true;
         } else {
             return false;
         }
+    }
+    public void liberarHabitacion(){
+        this.habitacionesDisponibles++;
     }
 	public int getCalificacion() {
         return calificacion;

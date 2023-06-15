@@ -9,6 +9,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        List<ReservarHotel> listaReservas = new ArrayList<>();
         // Variables para almacenar la selección del usuario
         List<Hotel> listaHoteles = new ArrayList<>();
         Hotel hotelSeleccionado = null;
@@ -159,7 +160,6 @@ public class Main {
                     break;
                 case 3:
                     do {
-
                         menuReserva();
                         opcion = scanner.nextInt();
                         scanner.nextLine();
@@ -226,6 +226,7 @@ public class Main {
                                 if (reservaExitosa) {
                                     System.out.println("Reserva realizada exitosamente.");
                                     System.out.println("---------------------------------------");
+                                    listaReservas.add(reserva);
                                 } else {
                                     System.out.println(
                                             "No se pudo realizar la reserva. El hotel no tiene habitaciones disponibles.");
@@ -236,6 +237,7 @@ public class Main {
                                 // Verificar si se ha realizado una reserva
                                 if (reserva == null) {
                                     System.out.println("Primero debe realizar una reserva.");
+                                    System.out.println("---------------------------------------");
                                     break;
                                 }
 
@@ -254,48 +256,52 @@ public class Main {
 
                                 if (pagoExitoso) {
                                     System.out.println("Pago realizado exitosamente.");
-                                    // Generar el ticket con la reserva y el pago
+                                    // Generar el ticket con la reserva, el pago y el hotel
                                     generarTicket(reserva, pago, hotelSeleccionado);
                                 } else {
                                     System.out.println(
                                             "No se pudo realizar el pago. El monto ingresado es insuficiente.");
+                                            System.out.println("---------------------------------------");
+                                }
+                                break;
+                            case 4:
+                                // Verificar si se ha realizado una reserva
+                                if (reserva == null) {
+                                    System.out.println("No se ha realizado ninguna reserva.");
+                                    System.out.println("---------------------------------------");
+                                    break;
+                                }
+
+                                // Confirmar la cancelación de la reserva
+                                System.out.println("¿Está seguro que desea cancelar la reserva? (S/N)");
+                                String aux = scanner.nextLine();
+
+                                if (aux.equalsIgnoreCase("S")) {
+                                    // Liberar la habitación en el hotel
+                                    hotel.liberarHabitacion();
+
+                                    // Mostrar mensaje de cancelación exitosa
+                                    System.out.println("La reserva ha sido cancelada exitosamente.");
+                                    System.out.println("---------------------------------------");
+                                    // borrar la reserva de la lista
+                                    listaReservas.remove(reserva);
+                                    reserva = null; // Limpiar la reserva actual
+                                } else {
+                                    System.out.println("La reserva no ha sido cancelada.");
+                                    System.out.println("---------------------------------------");
                                 }
                                 break;
                             default:
                                 break;
                         }
-                    } while (opcion != 4);
-
-                    /*
-                     * System.out.print("Ingrese el monto del pago: ");
-                     * double montoPago = scanner.nextDouble();
-                     * 
-                     * scanner.nextLine();
-                     * System.out.print("Ingrese el método de pago: ");
-                     * String metodoPago = scanner.nextLine();
-                     * 
-                     * ReservarHotel reserva = new ReservarHotel(cliente, hotel, null, null);
-                     * Pago pago = new Pago(reserva, montoPago, metodoPago);
-                     * if (pago.realizarPago(hotel)) {
-                     * System.out.println("Pago realizado con éxito.");
-                     * imprimirTicket(reserva, pago, hotel);
-                     * } else {
-                     * System.out.println("Error en el pago.");
-                     * }
-                     */
+                    } while (opcion != 5);
                     break;
                 case 4:
-                    /*
-                     * System.out.
-                     * println("Gracias por utilizar el sistema de gestión de reservas. ¡Hasta luego!"
-                     * );
-                     */
                     break;
                 default:
                     System.out.println("Opción inválida. Por favor, ingrese un número válido.");
                     break;
             }
-
             System.out.println();
         } while (opcion != 4);
 
@@ -309,8 +315,20 @@ public class Main {
         System.out.println("Cliente: " + reserva.getCliente().getNombre() + " " + reserva.getCliente().getApellido());
         System.out.println("Fecha de inicio: " + reserva.getFechaInicio());
         System.out.println("Fecha de fin: " + reserva.getFechaFin());
-        System.out.println("Monto pagado: " + pago.getMonto());
-        System.out.println("Vuelto: " + (pago.getMonto() - hotel.getPrecio()));
+        System.out.println("Pais: " + hotel.getPais());
+        System.out.print("Moneda: ");
+        if (hotel.getPais().equals("Argentina")) {
+            System.out.println("ARS$ (pesos argentinos)");
+        } else {
+            System.out.println("USD$ (dolar estadounidense)");
+        }
+        System.out.println("Precio: $" + hotel.getPrecio());
+        System.out.println("Monto pagado: $" + pago.getMonto());
+        if (pago.getMonto() < hotel.getPrecio()) {
+            System.out.println("Vuelto: $0" + " (Debe: " + (-1 * (pago.getMonto() - hotel.getPrecio())) + ")");
+        } else {
+            System.out.println("Vuelto: $" + (pago.getMonto() - hotel.getPrecio()));
+        }
         System.out.println("Método de pago: " + pago.getMetodoPago());
         System.out.println("---------------------------------------");
     }
@@ -319,7 +337,8 @@ public class Main {
         System.out.println("1. Seleccionar hotel");
         System.out.println("2. Realizar reserva");
         System.out.println("3. Realizar pago");
-        System.out.println("4. Salir");
+        System.out.println("4. Cancelar reserva");
+        System.out.println("5. Salir");
         System.out.print("Ingrese una opción: ");
     }
 
