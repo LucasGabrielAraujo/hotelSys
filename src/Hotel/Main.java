@@ -9,6 +9,8 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        int reservasId=1;
+        int hotelId=1;
         List<ReservarHotel> listaReservas = new ArrayList<>();
         // Variables para almacenar la selección del usuario
         List<Hotel> listaHoteles = new ArrayList<>();
@@ -19,13 +21,16 @@ public class Main {
 
         Hotel hotel = new Hotel("Hotel Azul", 10, 4, 100, "Peru",
                 "Productos Ejemplo", "Servicios Ejemplo", 50);
+                hotel.setId(hotelId++);
         Hotel hotel1 = new Hotel("Hotel Verde", 0, 5, 300, "Argentina",
                 "Productos Ejemplo", "Servicios Ejemplo", 50);
+                hotel1.setId(hotelId++);
         Hotel hotel2 = new Hotel("Hotel Blanco", 10, 4, 522, "Brasil",
                 "Productos Ejemplo", "Servicios Ejemplo", 50);
+                hotel2.setId(hotelId++);
 
         Cliente cliente = new Cliente("Lucas", "Araujo", "42830058", "Casual 123", "Lucas Araujo", "lucas@mail.com",
-                "123", 532512, "Lucas123", "caca.mp");
+                "123", 532512, "Lucas123", "caca.mp", true);
         listaHoteles.add(hotel);
         listaHoteles.add(hotel1);
         listaHoteles.add(hotel2);
@@ -38,6 +43,7 @@ public class Main {
             switch (opcion) {
                 case 1:
                     for (Hotel hotelPos : listaHoteles) {
+                        System.out.println("ID: "+ hotelPos.getId());
                         System.out.println("Nombre: " + hotelPos.getNombre());
                         System.out.println("Pais: " + hotelPos.getPais());
                         System.out.println("Capacidad: " + hotelPos.getCapacidad());
@@ -63,6 +69,7 @@ public class Main {
                                 for (Hotel hotelN : listaHoteles) {
                                     if (hotelN.getNombre().equals(hotelAux)) {
                                         System.out.println("---------------------------------------");
+                                        System.out.println("ID: "+ hotelN.getId());
                                         System.out.println("Nombre: " + hotelN.getNombre());
                                         System.out.println("Pais: " + hotelN.getPais());
                                         System.out.println("Capacidad: " + hotelN.getCapacidad());
@@ -87,6 +94,7 @@ public class Main {
                                 for (Hotel hotelN : listaHoteles) {
                                     if (hotelN.getPais().equals(hotelAux)) {
                                         System.out.println("---------------------------------------");
+                                        System.out.println("ID: "+ hotelN.getId());
                                         System.out.println("Nombre: " + hotelN.getNombre());
                                         System.out.println("Pais: " + hotelN.getPais());
                                         System.out.println("Capacidad: " + hotelN.getCapacidad());
@@ -111,6 +119,7 @@ public class Main {
                                 for (Hotel hotelN : listaHoteles) {
                                     if (hotelN.getPrecio() <= hotelPrecio) {
                                         System.out.println("---------------------------------------");
+                                        System.out.println("ID: "+ hotelN.getId());
                                         System.out.println("Nombre: " + hotelN.getNombre());
                                         System.out.println("Pais: " + hotelN.getPais());
                                         System.out.println("Capacidad: " + hotelN.getCapacidad());
@@ -133,6 +142,7 @@ public class Main {
                                 for (Hotel hotelN : listaHoteles) {
                                     if (hotelN.verificarDisponibilidad()) {
                                         System.out.println("---------------------------------------");
+                                        System.out.println("ID: "+ hotelN.getId());
                                         System.out.println("Nombre: " + hotelN.getNombre());
                                         System.out.println("Pais: " + hotelN.getPais());
                                         System.out.println("Capacidad: " + hotelN.getCapacidad());
@@ -180,7 +190,7 @@ public class Main {
 
                                 // Verificar si se encontró el hotel
                                 if (hotelSeleccionado != null) {
-                                    System.out.println("Hotel seleccionado: " + hotelSeleccionado.getNombre());
+                                    System.out.println("Hotel seleccionado: ID " +hotelSeleccionado.getId()+"\nNombre: "+ hotelSeleccionado.getNombre());
                                     System.out.println("---------------------------------------");
                                 } else {
                                     System.out.println(
@@ -226,6 +236,7 @@ public class Main {
                                 if (reservaExitosa) {
                                     System.out.println("Reserva realizada exitosamente.");
                                     System.out.println("---------------------------------------");
+                                    reserva.setId(reservasId++);
                                     listaReservas.add(reserva);
                                 } else {
                                     System.out.println(
@@ -242,6 +253,11 @@ public class Main {
                                 }
 
                                 // Solicitar al usuario el monto y método de pago
+                                if (cliente.getPremium()) {
+                                    System.out.println("Precio: $"+hotelSeleccionado.getPrecio());
+                                    System.out.println("Descuento por usuario premium(30%): $"+ (hotelSeleccionado.getPrecio()*0.3));
+                                    System.out.println("Precio final: $"+ (hotelSeleccionado.getPrecio() - (hotelSeleccionado.getPrecio()*0.3)));
+                                }
                                 System.out.print("Ingrese el monto a pagar: ");
                                 double monto = scanner.nextDouble();
                                 scanner.nextLine(); // Consumir la nueva línea pendiente
@@ -250,14 +266,17 @@ public class Main {
 
                                 // Crear una instancia de Pago
                                 pago = new Pago(reserva, monto, metodoPago);
-
+                                hotelSeleccionado.setPrecio(hotelSeleccionado.getPrecio()- (hotelSeleccionado.getPrecio()*0.3));
                                 // Realizar el pago
-                                boolean pagoExitoso = pago.realizarPago(hotel);
+                                boolean pagoExitoso = pago.realizarPago(hotelSeleccionado);
 
                                 if (pagoExitoso) {
                                     System.out.println("Pago realizado exitosamente.");
                                     // Generar el ticket con la reserva, el pago y el hotel
                                     generarTicket(reserva, pago, hotelSeleccionado);
+                                    pago = null;
+                                    reserva = null;
+                                    hotelSeleccionado=null;
                                 } else {
                                     System.out.println(
                                             "No se pudo realizar el pago. El monto ingresado es insuficiente.");
@@ -266,7 +285,7 @@ public class Main {
                                 break;
                             case 4:
                                 // Verificar si se ha realizado una reserva
-                                if (reserva == null) {
+                                if (listaReservas.isEmpty()) {
                                     System.out.println("No se ha realizado ninguna reserva.");
                                     System.out.println("---------------------------------------");
                                     break;
@@ -325,7 +344,7 @@ public class Main {
         System.out.println("Precio: $" + hotel.getPrecio());
         System.out.println("Monto pagado: $" + pago.getMonto());
         if (pago.getMonto() < hotel.getPrecio()) {
-            System.out.println("Vuelto: $0" + " (Debe: " + (-1 * (pago.getMonto() - hotel.getPrecio())) + ")");
+            System.out.println("Vuelto: $0" + " (Debe: " + (-1 * (hotel.getPrecio() - pago.getMonto())) + ")");
         } else {
             System.out.println("Vuelto: $" + (pago.getMonto() - hotel.getPrecio()));
         }

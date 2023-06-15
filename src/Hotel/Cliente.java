@@ -1,6 +1,7 @@
 package Hotel;
 
 class Cliente {
+	private boolean premium;
 	private String nombre;
 	private String apellido;
 	private String dni;
@@ -14,7 +15,7 @@ class Cliente {
 
 	public Cliente(String nombre, String apellido, String dni, String domicilio,
 			String nombreDeTarjetaDeCredito, String email, String contraseña,
-			int cuentaBancaria, String usuario, String mercadoPago) {
+			int cuentaBancaria, String usuario, String mercadoPago, Boolean premium) {
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.dni = dni;
@@ -25,6 +26,7 @@ class Cliente {
 		this.cuentaBancaria = cuentaBancaria;
 		this.usuario = usuario;
 		this.mercadoPago = mercadoPago;
+		this.premium=premium;
 	}
 
 	public String getNombre() {
@@ -105,5 +107,8 @@ class Cliente {
 
 	public void setMercadoPago(String mercadoPago) {
 		this.mercadoPago = mercadoPago;
+	}
+	public Boolean getPremium(){
+		return premium;
 	}
 }

@@ -1,16 +1,17 @@
 package Hotel;
 
 public class Hotel {
+    private int id;
     private int calificacion;
 	private int habitacionesDisponibles;
-	private int precio;
+	private double precio;
 	private String nombreHotel;
 	private String pais;
 	private String productos;
 	private String servicios;
 	private int capacidad; 
 	
-	public Hotel(String nombre, int habitacionesDisponibles, int calificacion, int precio,
+	public Hotel(String nombre, int habitacionesDisponibles, int calificacion, double precio,
                   String pais, String productos, String servicios, int capacidad) {
         this.nombreHotel = nombre;
         this.habitacionesDisponibles = habitacionesDisponibles;
@@ -45,11 +46,11 @@ public class Hotel {
         this.calificacion = calificacion;
     }
 
-    public int getPrecio() {
+    public double getPrecio() {
         return precio;
     }
 
-    public void setPrecio(int precio) {
+    public void setPrecio(double precio) {
         this.precio = precio;
     }
 
@@ -91,5 +92,11 @@ public class Hotel {
 
     public void setCapacidad(int capacidad) {
         this.capacidad = capacidad;
+    }
+    public int getId(){
+        return id;
+    }
+    public void setId(int id){
+        this.id=id;
     }
 }

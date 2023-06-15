@@ -1,7 +1,7 @@
 package Hotel;
 
 public class Pago {
-	private ReservarHotel reserva;
+    private ReservarHotel reserva;
     private double monto;
     private String metodoPago;
 
@@ -12,7 +12,7 @@ public class Pago {
     }
 
     public boolean realizarPago(Hotel hotel) {
-        if (monto > hotel.getPrecio()) {
+        if (monto >= hotel.getPrecio()) {
             return true;
         } else {
             return false;
@@ -40,7 +40,10 @@ public class Pago {
     }
 
     public void setMetodoPago(String metodoPago) {
-        this.metodoPago = metodoPago;
+        if (metodoPago.equalsIgnoreCase("mercado pago")) {
+            this.metodoPago = "Mercado Pago";
+        } else {
+            this.metodoPago = "Transferencia Bancaria";
+        }
     }
-
 }

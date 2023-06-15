@@ -3,6 +3,7 @@ package Hotel;
 import java.util.Date;
 
 public class ReservarHotel {
+    private int id;
     private Cliente cliente;
     private Hotel hotel;
     private Date fechaInicio;
@@ -54,4 +55,11 @@ public class ReservarHotel {
     public void setFechaFin(Date fechaFin) {
         this.fechaFin = fechaFin;
     }
+    public int getId(){
+        return id;
+    }
+    public void setId(int id){
+        this.id=id;
+    }
+    
 }
