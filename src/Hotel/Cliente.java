@@ -17,7 +17,7 @@ class Usuario {
 
 	public Usuario(String nombre, String apellido, String dni, String domicilio,
 			String nombreDeTarjetaDeCredito, String email, String contraseña,
-			int cuentaBancaria, String usuario, String mercadoPago, Boolean premium) {
+			int cuentaBancaria, String usuario, String mercadoPago, Boolean premium, Boolean administrador) {
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.dni = dni;
@@ -29,7 +29,8 @@ class Usuario {
 		this.usuario = usuario;
 		this.mercadoPago = mercadoPago;
 		this.premium = premium;
-		this.administrador = false;
+		this.administrador = administrador;
+		this.bloqueado= false;
 	}
 
 	public Usuario(String nombre, String apellido, String dni,
@@ -42,11 +43,12 @@ class Usuario {
 		this.usuario=usuario;
 		this.contraseña = contraseña;
 		this.administrador = administrador;
+		this.bloqueado=false;
 	}
 	public Boolean getAdmistrador() {
 		return administrador;
 	}
-	public boolean isBloqueado(){
+	public Boolean isBloqueado(){
 		return bloqueado;
 	}
 	public void setBloqueado(Boolean bloqueado){

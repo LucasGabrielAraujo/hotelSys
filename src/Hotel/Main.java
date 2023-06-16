@@ -8,8 +8,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
-import javax.swing.text.html.Option;
-
 public class Main {
     public static void main(String[] args) {
         int reservasId = 1;
@@ -42,10 +40,7 @@ public class Main {
         hotel2.setId(hotelId++);
         hotel2.setTiposHabitacion(sencilla);
 
-        Usuario cliente = new Usuario("Lucas", "Araujo", "42830058", "Casual 123", "Lucas Araujo", "lucas@mail.com",
-                "123", 532512, "Lucas123", "caca.mp", true);
-        cliente.setBloqueado(false);
-        listaUsuarios.add(cliente);
+        Usuario cliente = new Usuario("", "", "", "", "", "", false);
         listaHoteles.add(hotel);
         listaHoteles.add(hotel1);
         listaHoteles.add(hotel2);
@@ -56,6 +51,7 @@ public class Main {
         hotel2.addServicios("Cena");
         cuenta(listaUsuarios, cliente);
         int opcion;
+        System.out.println(cliente.getAdmistrador());
         if (cliente.getAdmistrador()) {
             Scanner scanner = new Scanner(System.in);
             menuAdmin();
@@ -69,7 +65,7 @@ public class Main {
                 default:
                     break;
             }
-        } else {
+        } else if(!cliente.getAdmistrador()){
             do {
                 Scanner scanner = new Scanner(System.in);
                 menuHoteles();
@@ -634,7 +630,7 @@ public class Main {
                         // Crear nuevo usuario con los datos ingresados
                         Usuario nuevoUsuario = new Usuario(nombre, apellido, dni, domicilio,
                                 nombreDeTarjeta, email, contraseña, cuentaBancaria,
-                                usuario, mercadoPago, premium);
+                                usuario, mercadoPago, premium, false);
 
                         // Agregar nuevo usuario a la lista de usuarios
                         listaUsuarios.add(nuevoUsuario);
@@ -675,13 +671,14 @@ public class Main {
                             // scanner.close();
                             break;
                         }
-                        ;
 
                         // Crear objeto de administrador
                         Usuario administrador = new Usuario(nombreAdmin, apellidoAdmin, dniAdmin,
                                 emailAdmin, usuarioAdmin, contraseñaAdmin,
                                 true);
                         listaUsuarios.add(administrador);
+                        expUsuario=administrador;
+                        break;
                     } else
                         break;
                 case 2:
@@ -730,18 +727,18 @@ public class Main {
                                     // Código incorrecto, bloquear cuenta
                                     usuarioIniciado.setBloqueado(true);
                                     System.out.println(
-                                            "Código incorrecto. Tu cuenta ha sido bloqueada por motivos de seguridad.");
+                                            "Código incorrecto. Tu cuenta ha sido bloqueada por motivos de seguridad, se ha enviado la contraseña a la direccion mail registrada.");
                                 }
                             } else {
                                 expUsuario = usuarioIniciado;
-                                opcion = 4;
+                                salir = true;
                             }
                         } else {
                             // Contraseña incorrecta, bloquear email
                             usuarioIniciado.setBloqueado(true);
                             System.out
                                     .println(
-                                            "Contraseña incorrecta. Tu email ha sido bloqueado por motivos de seguridad.");
+                                            "Contraseña incorrecta. Tu email ha sido bloqueado por motivos de seguridad, se ha enviado la contrase\u00F1a a la direccion mail registrada.");
                         }
                     } else {
                         // Usuario no encontrado
