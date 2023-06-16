@@ -1,6 +1,6 @@
 package Hotel;
 
-class Cliente {
+class Usuario {
 	private boolean premium;
 	private String nombre;
 	private String apellido;
@@ -10,10 +10,10 @@ class Cliente {
 	private String email;
 	private String contraseña;
 	private int cuentaBancaria;
-	private String usuario;
 	private String mercadoPago;
+	private Boolean administrador;
 
-	public Cliente(String nombre, String apellido, String dni, String domicilio,
+	public Usuario(String nombre, String apellido, String dni, String domicilio,
 			String nombreDeTarjetaDeCredito, String email, String contraseña,
 			int cuentaBancaria, String usuario, String mercadoPago, Boolean premium) {
 		this.nombre = nombre;
@@ -24,9 +24,20 @@ class Cliente {
 		this.email = email;
 		this.contraseña = contraseña;
 		this.cuentaBancaria = cuentaBancaria;
-		this.usuario = usuario;
 		this.mercadoPago = mercadoPago;
-		this.premium=premium;
+		this.premium = premium;
+		this.administrador = false;
+	}
+
+	public Usuario(String nombre, String apellido, String dni,
+			String email, String contraseña,
+			Boolean administrador) {
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.dni = dni;
+		this.email = email;
+		this.contraseña = contraseña;
+		this.administrador = administrador;
 	}
 
 	public String getNombre() {
@@ -93,12 +104,8 @@ class Cliente {
 		this.cuentaBancaria = cuentaBancaria;
 	}
 
-	public String getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(String usuario) {
-		this.usuario = usuario;
+	public Boolean isAdministrador() {
+		return administrador;
 	}
 
 	public String getMercadoPago() {
@@ -108,7 +115,8 @@ class Cliente {
 	public void setMercadoPago(String mercadoPago) {
 		this.mercadoPago = mercadoPago;
 	}
-	public Boolean getPremium(){
+
+	public Boolean isPremium() {
 		return premium;
 	}
 }

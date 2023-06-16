@@ -9,27 +9,37 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        int reservasId=1;
-        int hotelId=1;
+        int reservasId = 1;
+        int hotelId = 1;
         List<ReservarHotel> listaReservas = new ArrayList<>();
         // Variables para almacenar la selección del usuario
         List<Hotel> listaHoteles = new ArrayList<>();
         Hotel hotelSeleccionado = null;
         ReservarHotel reserva = null;
+        Habitacion habitacionSeleccionada = null;
         Pago pago = null;
         Scanner scanner = new Scanner(System.in);
 
-        Hotel hotel = new Hotel("Hotel Azul", 10, 4, 100, "Peru",
-                "Productos Ejemplo", "Servicios Ejemplo", 50);
-                hotel.setId(hotelId++);
-        Hotel hotel1 = new Hotel("Hotel Verde", 0, 5, 300, "Argentina",
-                "Productos Ejemplo", "Servicios Ejemplo", 50);
-                hotel1.setId(hotelId++);
-        Hotel hotel2 = new Hotel("Hotel Blanco", 10, 4, 522, "Brasil",
-                "Productos Ejemplo", "Servicios Ejemplo", 50);
-                hotel2.setId(hotelId++);
+        Habitacion sencilla = new Habitacion(20, "Sencilla");
+        Habitacion doble = new Habitacion(10, "Doble");
+        Habitacion suite = new Habitacion(5, "Suite");
+        Hotel hotel = new Hotel("Hotel Azul", 10, 4.0, "Peru",
+                "Productos Ejemplo");
+        hotel.setTiposHabitacion(sencilla);
+        hotel.setTiposHabitacion(doble);
+        hotel.setTiposHabitacion(suite);
+        hotel.setId(hotelId++);
+        Hotel hotel1 = new Hotel("Hotel Verde", 2, 50.0, "Argentina", "cosas");
+        hotel1.setTiposHabitacion(sencilla);
+        hotel1.setTiposHabitacion(doble);
+        hotel1.setTiposHabitacion(suite);
+        hotel1.setId(hotelId++);
+        Hotel hotel2 = new Hotel("Hotel Blanco", 4, 522, "Brasil",
+                "Productos Ejemplo");
+        hotel2.setId(hotelId++);
+        hotel2.setTiposHabitacion(sencilla);
 
-        Cliente cliente = new Cliente("Lucas", "Araujo", "42830058", "Casual 123", "Lucas Araujo", "lucas@mail.com",
+        Usuario cliente = new Usuario("Lucas", "Araujo", "42830058", "Casual 123", "Lucas Araujo", "lucas@mail.com",
                 "123", 532512, "Lucas123", "caca.mp", true);
         listaHoteles.add(hotel);
         listaHoteles.add(hotel1);
@@ -43,7 +53,7 @@ public class Main {
             switch (opcion) {
                 case 1:
                     for (Hotel hotelPos : listaHoteles) {
-                        System.out.println("ID: "+ hotelPos.getId());
+                        System.out.println("ID: " + hotelPos.getId());
                         System.out.println("Nombre: " + hotelPos.getNombre());
                         System.out.println("Pais: " + hotelPos.getPais());
                         System.out.println("Capacidad: " + hotelPos.getCapacidad());
@@ -69,7 +79,7 @@ public class Main {
                                 for (Hotel hotelN : listaHoteles) {
                                     if (hotelN.getNombre().equals(hotelAux)) {
                                         System.out.println("---------------------------------------");
-                                        System.out.println("ID: "+ hotelN.getId());
+                                        System.out.println("ID: " + hotelN.getId());
                                         System.out.println("Nombre: " + hotelN.getNombre());
                                         System.out.println("Pais: " + hotelN.getPais());
                                         System.out.println("Capacidad: " + hotelN.getCapacidad());
@@ -94,7 +104,7 @@ public class Main {
                                 for (Hotel hotelN : listaHoteles) {
                                     if (hotelN.getPais().equals(hotelAux)) {
                                         System.out.println("---------------------------------------");
-                                        System.out.println("ID: "+ hotelN.getId());
+                                        System.out.println("ID: " + hotelN.getId());
                                         System.out.println("Nombre: " + hotelN.getNombre());
                                         System.out.println("Pais: " + hotelN.getPais());
                                         System.out.println("Capacidad: " + hotelN.getCapacidad());
@@ -119,7 +129,7 @@ public class Main {
                                 for (Hotel hotelN : listaHoteles) {
                                     if (hotelN.getPrecio() <= hotelPrecio) {
                                         System.out.println("---------------------------------------");
-                                        System.out.println("ID: "+ hotelN.getId());
+                                        System.out.println("ID: " + hotelN.getId());
                                         System.out.println("Nombre: " + hotelN.getNombre());
                                         System.out.println("Pais: " + hotelN.getPais());
                                         System.out.println("Capacidad: " + hotelN.getCapacidad());
@@ -142,7 +152,7 @@ public class Main {
                                 for (Hotel hotelN : listaHoteles) {
                                     if (hotelN.verificarDisponibilidad()) {
                                         System.out.println("---------------------------------------");
-                                        System.out.println("ID: "+ hotelN.getId());
+                                        System.out.println("ID: " + hotelN.getId());
                                         System.out.println("Nombre: " + hotelN.getNombre());
                                         System.out.println("Pais: " + hotelN.getPais());
                                         System.out.println("Capacidad: " + hotelN.getCapacidad());
@@ -184,13 +194,24 @@ public class Main {
                                 for (Hotel hoteln : listaHoteles) {
                                     if (hoteln.getNombre().equalsIgnoreCase(nombreHotel)) {
                                         hotelSeleccionado = hoteln;
+                                        System.out.print("Ingrese el tipo de habitacion deseado: ");
+                                        String tipoHabitacion = scanner.nextLine();
+                                        scanner.nextLine();
+                                        for (Habitacion habitacion : hotelSeleccionado.getTiposHabitacion()) {
+                                            if (habitacion.getTipoHabitacion().equalsIgnoreCase(tipoHabitacion)) {
+                                                habitacionSeleccionada = habitacion;
+                                                hoteln.setCalificacion(hoteln.getCalificacion()-1);
+                                                break;
+                                            }
+                                        }
                                         break;
                                     }
                                 }
 
                                 // Verificar si se encontró el hotel
                                 if (hotelSeleccionado != null) {
-                                    System.out.println("Hotel seleccionado: ID " +hotelSeleccionado.getId()+"\nNombre: "+ hotelSeleccionado.getNombre());
+                                    System.out.println("Hotel seleccionado: ID " + hotelSeleccionado.getId()
+                                            + "\nNombre: " + hotelSeleccionado.getNombre());
                                     System.out.println("---------------------------------------");
                                 } else {
                                     System.out.println(
@@ -228,7 +249,7 @@ public class Main {
 
                                 // Crear una instancia de ReservarHotel
                                 reserva = new ReservarHotel(cliente, hotelSeleccionado, fechaInicio,
-                                        fechaFin);
+                                        fechaFin, habitacionSeleccionada);
 
                                 // Realizar la reserva
                                 boolean reservaExitosa = reserva.hacerReserva();
@@ -253,10 +274,12 @@ public class Main {
                                 }
 
                                 // Solicitar al usuario el monto y método de pago
-                                if (cliente.getPremium()) {
-                                    System.out.println("Precio: $"+hotelSeleccionado.getPrecio());
-                                    System.out.println("Descuento por usuario premium(30%): $"+ (hotelSeleccionado.getPrecio()*0.3));
-                                    System.out.println("Precio final: $"+ (hotelSeleccionado.getPrecio() - (hotelSeleccionado.getPrecio()*0.3)));
+                                if (cliente.isPremium()) {
+                                    System.out.println("Precio: $" + hotelSeleccionado.getPrecio());
+                                    System.out.println("Descuento por usuario premium(30%): $"
+                                            + (hotelSeleccionado.getPrecio() * 0.3));
+                                    System.out.println("Precio final: $"
+                                            + (hotelSeleccionado.getPrecio() - (hotelSeleccionado.getPrecio() * 0.3)));
                                 }
                                 System.out.print("Ingrese el monto a pagar: ");
                                 double monto = scanner.nextDouble();
@@ -266,7 +289,8 @@ public class Main {
 
                                 // Crear una instancia de Pago
                                 pago = new Pago(reserva, monto, metodoPago);
-                                hotelSeleccionado.setPrecio(hotelSeleccionado.getPrecio()- (hotelSeleccionado.getPrecio()*0.3));
+                                hotelSeleccionado.setPrecio(
+                                        hotelSeleccionado.getPrecio() - (hotelSeleccionado.getPrecio() * 0.3));
                                 // Realizar el pago
                                 boolean pagoExitoso = pago.realizarPago(hotelSeleccionado);
 
@@ -276,11 +300,11 @@ public class Main {
                                     generarTicket(reserva, pago, hotelSeleccionado);
                                     pago = null;
                                     reserva = null;
-                                    hotelSeleccionado=null;
+                                    hotelSeleccionado = null;
                                 } else {
                                     System.out.println(
                                             "No se pudo realizar el pago. El monto ingresado es insuficiente.");
-                                            System.out.println("---------------------------------------");
+                                    System.out.println("---------------------------------------");
                                 }
                                 break;
                             case 4:
@@ -297,7 +321,7 @@ public class Main {
 
                                 if (aux.equalsIgnoreCase("S")) {
                                     // Liberar la habitación en el hotel
-                                    hotel.liberarHabitacion();
+                                    hotel.set;
 
                                     // Mostrar mensaje de cancelación exitosa
                                     System.out.println("La reserva ha sido cancelada exitosamente.");
@@ -331,7 +355,7 @@ public class Main {
     public static void generarTicket(ReservarHotel reserva, Pago pago, Hotel hotel) {
         System.out.println("---------- Ticket de Reserva ----------");
         System.out.println("Hotel: " + reserva.getHotel().getNombre());
-        System.out.println("Cliente: " + reserva.getCliente().getNombre() + " " + reserva.getCliente().getApellido());
+        System.out.println("Cliente: " + reserva.getUsuario().getNombre() + " " + reserva.getCliente().getApellido());
         System.out.println("Fecha de inicio: " + reserva.getFechaInicio());
         System.out.println("Fecha de fin: " + reserva.getFechaFin());
         System.out.println("Pais: " + hotel.getPais());
@@ -386,5 +410,28 @@ public class Main {
         System.out.println("4. Filtrar por disponibilidad");
         System.out.println("5. Salir");
         System.out.print("Ingrese una opcion: ");
+    }
+
+    public void seleccionarTipoHabitacion(ReservarHotel reserva) {
+        System.out.println("Tipos de habitación disponibles:");
+        for (Habitacion habitacion : reserva.getHotel().getTiposHabitacion()) {
+            System.out.println("- " + habitacion.getTipoHabitacion() + " (Disponibles: "
+                    + habitacion.getHabitacionesDisponibles() + ")");
+        }
+        System.out.print("Ingrese el tipo de habitación deseado: ");
+        String tipoSeleccionado = scanner.nextLine();
+
+        // Verificar si el tipo de habitación seleccionado está disponible
+        for (Habitacion habitacion : reserva.getHotel().getTiposHabitacion()) {
+            if (habitacion.getTipoHabitacion().equals(tipoSeleccionado)
+                    && habitacion.getHabitacionesDisponibles() > 0) {
+                reserva.setTipoHabitacion(tipoSeleccionado);
+                habitacion.setHabitacionesDisponibles(habitacion.getHabitacionesDisponibles() - 1);
+                System.out.println("Habitación seleccionada: " + tipoSeleccionado);
+                return;
+            }
+        }
+
+        System.out.println("El tipo de habitación seleccionado no está disponible. Por favor, elija otro tipo.");
     }
 }

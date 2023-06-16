@@ -1,19 +1,22 @@
 package Hotel;
 
 import java.util.Date;
+import java.util.List;
 
 public class ReservarHotel {
     private int id;
-    private Cliente cliente;
+    private Usuario usuario;
     private Hotel hotel;
     private Date fechaInicio;
     private Date fechaFin;
+    private String tipoHabitacion;
 
-    public ReservarHotel(Cliente cliente, Hotel hotel, Date fechaInicio, Date fechaFin) {
-        this.cliente = cliente;
+    public ReservarHotel(Usuario usuario, Hotel hotel, Date fechaInicio, Date fechaFin, String tipoHabitacion) {
+        this.usuario = usuario;
         this.hotel = hotel;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
+        this.tipoHabitacion=tipoHabitacion;
     }
 
     public boolean hacerReserva() {
@@ -24,12 +27,12 @@ public class ReservarHotel {
         }
     }
 
-    public Cliente getCliente() {
-        return cliente;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     public Hotel getHotel() {
@@ -61,5 +64,8 @@ public class ReservarHotel {
     public void setId(int id){
         this.id=id;
     }
-    
+    public void setTipoHabitacion(String tipoHabitacion){
+        this.tipoHabitacion=tipoHabitacion;
+    }
+
 }

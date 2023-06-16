@@ -1,44 +1,55 @@
 package Hotel;
 
+import java.util.List;
+
 public class Hotel {
     private int id;
     private int calificacion;
-	private int habitacionesDisponibles;
-	private double precio;
-	private String nombreHotel;
-	private String pais;
-	private String productos;
-	private String servicios;
-	private int capacidad; 
-	
-	public Hotel(String nombre, int habitacionesDisponibles, int calificacion, double precio,
-                  String pais, String productos, String servicios, int capacidad) {
+    private List<Habitacion> tiposHabitacion;
+    private double precio;
+    private String nombreHotel;
+    private String pais;
+    private String productos;
+    private int capacidad;
+    private List<String> servicios;
+
+    public Hotel(String nombre, int calificacion, double precio,
+            String pais, String productos) {
         this.nombreHotel = nombre;
-        this.habitacionesDisponibles = habitacionesDisponibles;
         this.calificacion = calificacion;
         this.precio = precio;
         this.pais = pais;
         this.productos = productos;
-        this.servicios = servicios;
-        this.capacidad = capacidad;
-	}
-
-	public boolean verificarDisponibilidad() {
-        return habitacionesDisponibles > 0;
     }
 
-    public boolean reservarHabitacion() {
-        if (verificarDisponibilidad()) {
-            this.habitacionesDisponibles--;
-            return true;
-        } else {
-            return false;
+    public void addServicios(String servicio) {
+        this.servicios.add(servicio);
+    }
+
+    public void removeServicios(String servicio) {
+        servicios.remove(servicio);
+    }
+
+    public boolean verificarDisponibilidad() {
+        return capacidad > 0;
+    }
+
+    public List<Habitacion> getTiposHabitacion() {
+        return tiposHabitacion;
+    }
+
+    public void setTiposHabitacion(Habitacion habitacion) {
+        this.tiposHabitacion.add(habitacion);
+    }
+
+    public void definirCantHabitacion() {
+        capacidad = 0;
+        for (Habitacion habita : tiposHabitacion) {
+            capacidad += habita.getHabitacionesDisponibles();
         }
     }
-    public void liberarHabitacion(){
-        this.habitacionesDisponibles++;
-    }
-	public int getCalificacion() {
+
+    public int getCalificacion() {
         return calificacion;
     }
 
@@ -78,25 +89,19 @@ public class Hotel {
         this.productos = productos;
     }
 
-    public String getServicios() {
+    public List<String> getServicios() {
         return servicios;
-    }
-
-    public void setServicios(String servicios) {
-        this.servicios = servicios;
     }
 
     public int getCapacidad() {
         return capacidad;
     }
 
-    public void setCapacidad(int capacidad) {
-        this.capacidad = capacidad;
-    }
-    public int getId(){
+    public int getId() {
         return id;
     }
-    public void setId(int id){
-        this.id=id;
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
