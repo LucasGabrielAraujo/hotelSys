@@ -1,7 +1,6 @@
 package Hotel;
 
 import java.util.Date;
-import java.util.List;
 
 public class ReservarHotel {
     private int id;
@@ -19,14 +18,16 @@ public class ReservarHotel {
         this.tipoHabitacion=tipoHabitacion;
     }
 
-    public boolean hacerReserva() {
-        if (hotel.reservarHabitacion()) {
+    /* public boolean hacerReserva() {
+        if () {
             return true;
         } else {
             return false;
         }
+    } */
+    public String getTipoHabitacion(){
+        return tipoHabitacion;
     }
-
     public Usuario getUsuario() {
         return usuario;
     }

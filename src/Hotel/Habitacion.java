@@ -6,7 +6,13 @@ public class Habitacion {
 
     public Habitacion(int habitacionesDisponibles, String tipoHabitacion) {
         this.habitacionesDisponibles = habitacionesDisponibles;
-        this.tipoHabitacion = tipoHabitacion;
+        if (tipoHabitacion.equalsIgnoreCase("sencilla")) {
+            this.tipoHabitacion = "Sencilla";
+        }else if (tipoHabitacion.equalsIgnoreCase("suite")){
+            this.tipoHabitacion="Suite";
+        }else if (tipoHabitacion.equalsIgnoreCase("doble")){
+            this.tipoHabitacion="Doble";
+        }
     }
     public int getHabitacionesDisponibles() {
         return habitacionesDisponibles;

@@ -8,7 +8,11 @@ public class Pago {
     public Pago(ReservarHotel reserva, double monto, String metodoPago) {
         this.reserva = reserva;
         this.monto = monto;
-        this.metodoPago = metodoPago;
+        if (metodoPago.equalsIgnoreCase("mercado pago")) {
+            this.metodoPago = "Mercado Pago";
+        } else {
+            this.metodoPago = "Transferencia Bancaria";
+        }
     }
 
     public boolean realizarPago(Hotel hotel) {
@@ -40,7 +44,7 @@ public class Pago {
     }
 
     public void setMetodoPago(String metodoPago) {
-        if (metodoPago.equalsIgnoreCase("mercado pago")) {
+        if (metodoPago.equalsIgnoreCase("m")) {
             this.metodoPago = "Mercado Pago";
         } else {
             this.metodoPago = "Transferencia Bancaria";

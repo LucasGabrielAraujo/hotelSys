@@ -1,5 +1,6 @@
 package Hotel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Hotel {
@@ -20,6 +21,8 @@ public class Hotel {
         this.precio = precio;
         this.pais = pais;
         this.productos = productos;
+        this.tiposHabitacion = new ArrayList<>();
+        this.servicios = new ArrayList<>();
     }
 
     public void addServicios(String servicio) {
@@ -40,13 +43,20 @@ public class Hotel {
 
     public void setTiposHabitacion(Habitacion habitacion) {
         this.tiposHabitacion.add(habitacion);
+        definirCantHabitacion();
     }
 
-    public void definirCantHabitacion() {
+    private void definirCantHabitacion() {
         capacidad = 0;
         for (Habitacion habita : tiposHabitacion) {
             capacidad += habita.getHabitacionesDisponibles();
         }
+    }
+    public void consumirHabitacion(){
+        capacidad--;
+    }
+    public void liberarHabitacion(){
+        capacidad++;
     }
 
     public int getCalificacion() {

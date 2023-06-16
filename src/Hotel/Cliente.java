@@ -12,6 +12,8 @@ class Usuario {
 	private int cuentaBancaria;
 	private String mercadoPago;
 	private Boolean administrador;
+	private String usuario;
+	private Boolean bloqueado;
 
 	public Usuario(String nombre, String apellido, String dni, String domicilio,
 			String nombreDeTarjetaDeCredito, String email, String contraseña,
@@ -24,22 +26,32 @@ class Usuario {
 		this.email = email;
 		this.contraseña = contraseña;
 		this.cuentaBancaria = cuentaBancaria;
+		this.usuario = usuario;
 		this.mercadoPago = mercadoPago;
 		this.premium = premium;
 		this.administrador = false;
 	}
 
 	public Usuario(String nombre, String apellido, String dni,
-			String email, String contraseña,
+			String email,String usuario, String contraseña,
 			Boolean administrador) {
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.dni = dni;
 		this.email = email;
+		this.usuario=usuario;
 		this.contraseña = contraseña;
 		this.administrador = administrador;
 	}
-
+	public Boolean getAdmistrador() {
+		return administrador;
+	}
+	public boolean isBloqueado(){
+		return bloqueado;
+	}
+	public void setBloqueado(Boolean bloqueado){
+		this.bloqueado=bloqueado;
+	}
 	public String getNombre() {
 		return nombre;
 	}
